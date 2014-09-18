@@ -5,59 +5,59 @@ package com.icomputational.geoelements;
  * A {@link Coordinate} represents an immutable geographic coordinate on sphere 
  */
 public class Coordinate implements Comparable<Coordinate> {
-	private static final int MIN_LONGITUDE = -180;
-	private static final int MAX_LONGITUDE = 180;
-	private static final int MIN_LATITUDE = -90;
-	private static final int MAX_LATITUDE = 90;
-	
-	private static final int MIN_INT_LONGITUDE = -180000000;
-	private static final int MAX_INT_LONGITUDE = 180000000;
-	private static final int MIN_INT_LATITUDE = -90000000;
-	private static final int MAX_INT_LATITUDE = 90000000;
-	
-	private static double DECIMAL_EQUAL_THRESHOLD = 1E-6;
-	
-	private final double longitude;
-	private final double latitude;
-	
+    private static final int MIN_LONGITUDE = -180;
+    private static final int MAX_LONGITUDE = 180;
+    private static final int MIN_LATITUDE = -90;
+    private static final int MAX_LATITUDE = 90;
+    
+    private static final int MIN_INT_LONGITUDE = -180000000;
+    private static final int MAX_INT_LONGITUDE = 180000000;
+    private static final int MIN_INT_LATITUDE = -90000000;
+    private static final int MAX_INT_LATITUDE = 90000000;
+    
+    private static double DECIMAL_EQUAL_THRESHOLD = 1E-6;
+    
+    private final double longitude;
+    private final double latitude;
+    
     /**
      * Construct a geography coordinate from decimal degrees (6 decimal places).
      * @see <a href="http://en.wikipedia.org/wiki/Decimal_degrees">Decimal Degrees</a>
      * @param lng the decimal degrees for longitude. 
      * @param lat the decimal degrees for latitude.
      */
-	public static Coordinate fromDecimal(int lng, int lat) {
-		if (lng < MIN_INT_LONGITUDE || lng > MAX_INT_LONGITUDE || lat < MIN_INT_LATITUDE || lat > MAX_INT_LATITUDE) {
-			return null;
-		}
-		
-		return new Coordinate(fromDecimal(lng), fromDecimal(lat));
-	}
-	
-	/**
+    public static Coordinate fromDecimal(int lng, int lat) {
+        if (lng < MIN_INT_LONGITUDE || lng > MAX_INT_LONGITUDE || lat < MIN_INT_LATITUDE || lat > MAX_INT_LATITUDE) {
+            return null;
+        }
+        
+        return new Coordinate(fromDecimal(lng), fromDecimal(lat));
+    }
+    
+    /**
      * Parse coordinate from a string.
      * @param text string representation in the form: &lt;longitude&gt;,&lt;latitude&gt;
      * @return a coordinate instance, null if failed.
      */
-	public static Coordinate parse(String text) {
-		if (text == null || text.isEmpty()) {
-			return null;
-		}
-		
-		String[] pair = text.split(",");
-		if (pair.length != 2) {
-			return null;
-		}
-		
-		try {
-			final Double longitude = Double.parseDouble(pair[0]);
-			final Double latitude = Double.parseDouble(pair[1]);
-			Coordinate coord = new Coordinate(longitude, latitude);
-			return coord.isValid() ? coord : null;
-		} catch (NumberFormatException e) {
-			return null;
-		}
-	}
+    public static Coordinate parse(String text) {
+        if (text == null || text.isEmpty()) {
+            return null;
+        }
+        
+        String[] pair = text.split(",");
+        if (pair.length != 2) {
+            return null;
+        }
+        
+        try {
+            final Double longitude = Double.parseDouble(pair[0]);
+            final Double latitude = Double.parseDouble(pair[1]);
+            Coordinate coord = new Coordinate(longitude, latitude);
+            return coord.isValid() ? coord : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 
     /**
      * Construct a geography coordinate from longitude and latitude.
@@ -135,13 +135,13 @@ public class Coordinate implements Comparable<Coordinate> {
     
     @Override
     public int hashCode() {
-    	final int prime = 31;
-    	int result = 1;
-    	long temp = Double.doubleToLongBits(latitude);
-    	result = prime * result + (int) (temp ^ (temp >>> 32));
-    	temp = Double.doubleToLongBits(longitude);
-    	result = prime * result + (int) (temp ^(temp >>> 32));
-    	return result;
+        final int prime = 31;
+        int result = 1;
+        long temp = Double.doubleToLongBits(latitude);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = prime * result + (int) (temp ^(temp >>> 32));
+        return result;
     }
     
     /**
@@ -157,40 +157,40 @@ public class Coordinate implements Comparable<Coordinate> {
     
     @Override
     public boolean equals(Object obj) {
-    	if (this == obj)
-    		return true;
-    	
-    	if (obj == null)
-    		return false;
-    	
-    	if (getClass() != obj.getClass())
-    		return false;
-    	
-    	Coordinate other = (Coordinate)obj;
-    	if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+        if (this == obj)
+            return true;
+        
+        if (obj == null)
             return false;
-    	
+        
+        if (getClass() != obj.getClass())
+            return false;
+        
+        Coordinate other = (Coordinate)obj;
+        if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+            return false;
+        
         if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
             return false;
         
         return true;
     }
     
-	@Override
-	public int compareTo(Coordinate other) {
-		int cmp = Double.compare(longitude, other.longitude);
-		if (cmp == 0) {
-			cmp = Double.compare(latitude, other.latitude);
-		}
-		return cmp;
-	}
-	
+    @Override
+    public int compareTo(Coordinate other) {
+        int cmp = Double.compare(longitude, other.longitude);
+        if (cmp == 0) {
+            cmp = Double.compare(latitude, other.latitude);
+        }
+        return cmp;
+    }
+    
     /**
      * Returns string representation of this coordinate in the form: &lt;longitude&gt;,&lt;latitude&gt;
      */
-	@Override
-	public String toString() {
-		return longitude + "," + latitude;
-	}
+    @Override
+    public String toString() {
+        return longitude + "," + latitude;
+    }
 
 }

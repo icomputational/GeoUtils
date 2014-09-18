@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class CoordinateTest {
-	@Test
-	public void testBaseCases() {
-		Coordinate coord = new Coordinate(0D, 0D);
-		assertEquals(Double.doubleToLongBits(0D), Double.doubleToLongBits(coord.longitude()));
+    @Test
+    public void testBaseCases() {
+        Coordinate coord = new Coordinate(0D, 0D);
+        assertEquals(Double.doubleToLongBits(0D), Double.doubleToLongBits(coord.longitude()));
         assertEquals(Double.doubleToLongBits(0D), Double.doubleToLongBits(coord.latitude()));
 
         assertTrue(coord.isValid());
@@ -21,15 +21,15 @@ public class CoordinateTest {
 
         coord = new Coordinate(19, 91);
         assertFalse(coord.isValid());
-	}
-	
-	@Test
-	public void testDecimalDegrees() {
-		Coordinate coord = new Coordinate(0D, 0D);
-		assertEquals(0, coord.decimalLatitude());
-		assertEquals(0, coord.decimalLongitude());
-		
-		assertEquals(coord, Coordinate.fromDecimal(0, 0));
+    }
+    
+    @Test
+    public void testDecimalDegrees() {
+        Coordinate coord = new Coordinate(0D, 0D);
+        assertEquals(0, coord.decimalLatitude());
+        assertEquals(0, coord.decimalLongitude());
+        
+        assertEquals(coord, Coordinate.fromDecimal(0, 0));
 
         coord = Coordinate.fromDecimal(1234567, 2345678);
         assertEquals(1234567, coord.decimalLongitude());
@@ -46,8 +46,8 @@ public class CoordinateTest {
         coord = new Coordinate(-0.12345678, -0.12345678);
         assertEquals(-123457, coord.decimalLongitude());
         assertEquals(-123457, coord.decimalLatitude());
-	}
-	
+    }
+    
     @Test
     public void testParse() {
         Coordinate coordinate = Coordinate.parse("119.12345678,34.12345678");
