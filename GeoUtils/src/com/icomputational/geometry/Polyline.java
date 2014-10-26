@@ -1,8 +1,14 @@
 package com.icomputational.geometry;
 
+import java.util.List;
+
 public class Polyline {
     private final double[] ax;
     private final double[] ay;
+    
+    public Polyline(List<Point> points) {
+        this(points.toArray(new Point[points.size()]));
+    }
     
     public Polyline(Point[] points) {
         if (points.length < 2) {
